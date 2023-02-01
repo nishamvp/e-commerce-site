@@ -1,0 +1,83 @@
+<section>
+  <div class="container">
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Title</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+        <tr>
+          {{#each this.product}}
+          <td><img
+              style="width: 70px;height: 70px;"
+              src="/product-images/{{this._id}}.jpg"
+              alt=""
+            /></td>
+          <td>{{this.name}}</td>
+          <td>{{this.price}}</td>
+          {{/each}}
+          <td>
+            <button
+              class="quantity-left-minus btn btn-danger btn-number"
+              onclick="changeQuantity('{{this._id}}','{{this.item}}','-1')" 
+            >-</button>
+            <span id="{{this.item}}">{{this.quantity}}</span>
+            <button
+              class="quantity-right-plus btn btn-success btn-number"
+              onclick="changeQuantity('{{this._id}}','{{this.item}}','1')"   
+            >+</button>
+          </td>
+          <td>
+            <a href="" class="btn btn-danger">Remove</a>
+          </td>
+          
+        </tr>
+        {{/each}}
+      </tbody>
+
+    </table>
+    <hr>
+    <div class="float-end pe-5 mt-2">
+    <h4 class="float-start  me-5">Total: Rs.<span id="total">{{totalValue}}</span></h4>
+    <a href="/place-order" class="btn btn-success mt-3 " style="width: 50%;">Place order</a>
+    </div>
+  </div>
+  
+
+</section>
+
+<script>
+  changeQuantity=(cartId,prodId,count)=>{
+    let quantity=parseInt(document.getElementById(prodId).innerHTML)
+     count=parseInt(count);
+   
+   
+    $.ajax({
+      url:'/change-product-quantity',
+      data:{
+        cart:cartId,
+        product:prodId,
+        count:count,
+        quantity:quantity
+     
+      },
+      type:'post',
+      success:(response)=>{
+        if(response.removeProduct){
+          alert('Product removed from cart');
+          location.reload()
+        }else{
+          document.getElementById(prodId).innerHTML=quantity+count
+          document.getElementById('total').innerHTML=response.total
+        }
+       
+        }
+    })
+
+  }
+</script>

@@ -1,0 +1,21 @@
+<section>
+    <div class="container">
+        <h2 class="p-2">Users</h2>
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                <th scope="col">User name</th>
+                <th scope="col">User email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.email}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>

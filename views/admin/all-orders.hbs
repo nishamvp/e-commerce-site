@@ -1,0 +1,49 @@
+<section>
+  <div class="container">
+    <h2 class="p-2">Orders</h2>
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Address</th>
+          <th scope="col">Pincode</th>
+          <th scope="col">Mobile</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Payment</th>
+          <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each orders}}
+        <tr>
+          <td>{{this.date}}</td>
+          <td>{{this.deliveryDetails.address}}</td>
+          <td>{{this.deliveryDetails.pincode}}</td>
+          <td>{{this.deliveryDetails.mobile}}</td>
+          <td>{{this.total}}</td>
+          <td>{{this.paymentMethod}}</td>
+          <td>{{this.status}}</td>
+          <td>
+            <button class="btn btn-primary" id="shipment-button" onclick="confirmShipment('{{this._id}}')">Proceed Shipment</button>
+          </td>
+    </tbody> 
+    {{/each}}
+    </table>  
+    </div>      
+</section>
+
+<script>
+  confirmShipment=(orderId)=>{
+    $.ajax({
+      url:'/admin/confirm-shipment',
+      data:{orderId:orderId},
+      type:'post',
+      success:(response)=>{
+        if(response.status){
+           $("#shipment-button").html(" Order Shipped");
+            alert('item shipped')
+        }
+      }
+    })
+  }
+</script>

@@ -1,0 +1,33 @@
+
+<div class="row">
+  <div class="col-md-6 m-auto">
+    <div class="container mt-5 pl-5">
+      <h2 class="text-center">Admin Login</h2>
+      <form action="/admin/login" method="post">
+      {{#if loginErr}}
+      <p class="error">{{loginErr}}</p>
+      {{/if}}
+        <div class="form-group  mt-2">
+          <label for="Admin Id">Admin Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="adminId"
+            placeholder="Enter admin Id"
+          />
+        </div>
+        <div class="form-group mt-2">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Enter password"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary float-right mt-3">Login</button>
+      </form>
+    </div>
+
+  </div>
+</div>
